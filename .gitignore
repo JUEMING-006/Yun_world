@@ -1,16 +1,5 @@
-<<<<<<< HEAD
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
 # Dependencies
 node_modules/
-.pnp
-.pnp.js
 
 # Build output
 dist/
@@ -39,27 +28,7 @@ Thumbs.db
 # Env
 .env
 .env.*
-!.env.example
-=======
-# 依赖
-node_modules/
-miniprogram_npm/
 
-# 构建产物
-dist/
-build/
-
-# 开发者工具个人配置
-project.private.config.json
-
-# 日志
-*.log
-npm-debug.log*
-
-# 系统文件
-.DS_Store
-Thumbs.db
-
-# 敏感配置
-utils/secrets.js
->>>>>>> 525a2077992069aca76f5013dd310473cdab101d
+# pnpm
+pnpm-lock.yaml
+pnpm-workspace.yaml
