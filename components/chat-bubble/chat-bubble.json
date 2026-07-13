@@ -1,8 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "t-icon": "tdesign-miniprogram/icon/icon",
-    "t-image": "tdesign-miniprogram/image/image",
-    "markdown-renderer": "../markdown-renderer/markdown-renderer"
-  }
-}

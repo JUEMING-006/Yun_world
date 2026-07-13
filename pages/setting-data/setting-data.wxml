@@ -1,7 +1,0 @@
-<view class="page" style="padding-top:{{statusBarHeight}}px;">
-  <top-bar title="数据管理" show-back="{{true}}" bind:back="onBack" />
-  <scroll-view class="content" scroll-y>
-    <view class="info-card"><view class="info-row"><text class="info-label">缓存大小</text><text class="info-value">{{cacheSize}}</text></view><view class="info-row"><text class="info-label">存储条目</text><text class="info-value">{{storageKeys}} 条</text></view></view>
-    <view class="action-list"><view class="action-item danger" bindtap="onClearCache"><t-icon name="delete" size="36rpx" color="var(--error-color)" /><text>清除所有缓存</text></view></view>
-  </scroll-view>
-</view>
