@@ -2,7 +2,6 @@
   "name": "floattask",
   "version": "0.1.0",
   "private": true,
-  "description": "FloatTask - 极轻量桌面悬浮任务管理应用（液态玻璃 · 水滴形态）",
   "type": "module",
   "scripts": {
     "dev": "vite",
