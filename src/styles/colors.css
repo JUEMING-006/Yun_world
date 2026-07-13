@@ -1,0 +1,29 @@
+/* ====================================================================
+   颜色预警映射 —— 5 级紧迫度
+   等级规则（与 Rust 端 scheduler.rs 一致）：
+     0  无截止 或 >7天   灰白/默认
+     1  3-7天            绿色  从容
+     2  1-3天            黄色  注意
+     3  12-24小时        橙色  紧迫
+     4  <12小时/已过期   红色  紧急（脉冲）
+   ==================================================================== */
+
+:root {
+  --color-level-0: rgba(200, 200, 210, 0.6);
+  --color-level-1: rgba(72, 199, 142, 0.85);
+  --color-level-2: rgba(255, 193, 7, 0.9);
+  --color-level-3: rgba(255, 138, 0, 0.95);
+  --color-level-4: rgba(255, 56, 56, 0.95);
+}
+
+/* 工具类：按等级映射颜色变量 */
+.level-0 { --level-color: var(--color-level-0); }
+.level-1 { --level-color: var(--color-level-1); }
+.level-2 { --level-color: var(--color-level-2); }
+.level-3 { --level-color: var(--color-level-3); }
+.level-4 { --level-color: var(--color-level-4); }
+
+/* 优先级辅助色（与 color_level 独立，用于任务卡片标记） */
+.priority-low { --priority-color: rgba(72, 199, 142, 0.9); }
+.priority-medium { --priority-color: rgba(255, 193, 7, 0.9); }
+.priority-high { --priority-color: rgba(255, 56, 56, 0.9); }

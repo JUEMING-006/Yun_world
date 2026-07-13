@@ -1,0 +1,136 @@
+/* ====================================================================
+   动画关键帧
+   - 水滴呼吸光圈
+   - 水滴 -> 面板 流体展开
+   - 红色紧急脉冲
+   - 卡片淡入/滑出
+   ==================================================================== */
+
+/* 水滴呼吸光圈（常态微弱呼吸） */
+@keyframes droplet-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+/* 水滴外圈呼吸波纹（语音录音时使用） */
+@keyframes voice-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* 水滴展开为面板（流体融化） */
+@keyframes expand-from-droplet {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+    border-radius: 50%;
+  }
+  50% {
+    transform: scale(0.6);
+    opacity: 0.8;
+    border-radius: 36px;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* 面板缩回水滴 */
+@keyframes collapse-to-droplet {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    border-radius: var(--radius-lg);
+  }
+  100% {
+    transform: scale(0.1);
+    opacity: 0;
+    border-radius: 50%;
+  }
+}
+
+/* 红色紧急脉冲（color_level = 4 时水滴自动展开） */
+@keyframes urgent-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 56, 56, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(255, 56, 56, 0);
+  }
+}
+
+/* 任务卡片打钩后滑出 */
+@keyframes task-slide-out {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+}
+
+/* 卡片淡入上浮 */
+@keyframes fade-in-up {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 应用动画类 */
+.animate-breathe {
+  animation: droplet-breathe 3s ease-in-out infinite;
+}
+
+.animate-expand {
+  animation: expand-from-droplet 0.3s var(--ease-glass) forwards;
+}
+
+.animate-collapse {
+  animation: collapse-to-droplet 0.2s var(--ease-glass) forwards;
+}
+
+.animate-urgent {
+  animation: urgent-pulse 1.5s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.25s var(--ease-glass) forwards;
+}
+
+.animate-slide-out {
+  animation: task-slide-out 0.3s var(--ease-glass) forwards;
+}
+
+/* 尊重用户的减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

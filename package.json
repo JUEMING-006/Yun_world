@@ -1,0 +1,28 @@
+{
+  "name": "floattask",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FloatTask - 极轻量桌面悬浮任务管理应用（液态玻璃 · 水滴形态）",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-sql": "^2.0.0",
+    "pinia": "^2.2.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0",
+    "@types/node": "^22.0.0",
+    "@vitejs/plugin-vue": "^5.1.0",
+    "typescript": "~5.5.0",
+    "vite": "^5.4.0",
+    "vue-tsc": "^2.0.0"
+  }
+}
