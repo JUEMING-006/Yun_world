@@ -1,0 +1,27 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="知识文章" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y bindscrolltolower="onLoadMore">
+    <view wx:if="{{isLoading && articles.length===0}}" class="loading"><text>加载中...</text></view>
+    <view wx:elif="{{articles.length===0}}" class="empty"><t-empty description="暂无文章" /></view>
+    <view wx:else class="article-list">
+      <view wx:for="{{articles}}" wx:key="id" class="article-card" data-id="{{item.id}}" bindtap="onArticleClick">
+        <view class="article-cover" wx:if="{{item.coverUrl}}">
+          <image src="{{item.coverUrl}}" mode="aspectFill" class="cover-img" />
+        </view>
+        <view class="article-info">
+          <view class="article-category">{{item.category}}</view>
+          <text class="article-title">{{item.title}}</text>
+          <text class="article-summary">{{item.summary}}</text>
+          <view class="article-meta">
+            <view class="meta-item">
+              <t-icon name="heart" size="24rpx" color="#999" />
+              <text>{{item.likeCount}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{isLoading}}" class="load-more"><text>加载更多...</text></view>
+      <view wx:elif="{{!hasMore}}" class="load-more"><text>没有更多了</text></view>
+    </view>
+  </scroll-view>
+</view>

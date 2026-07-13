@@ -1,0 +1,4 @@
+<!-- 入口页：纯逻辑中转，无 UI -->
+<view class="index-page">
+  <text>Loading...</text>
+</view>

@@ -1,0 +1,23 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="外观" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y>
+    <view class="section">
+      <view class="section-title">主题模式</view>
+      <view class="theme-grid">
+        <view wx:for="{{themes}}" wx:key="id" class="theme-item {{themeMode===item.id?'active':''}}" data-id="{{item.id}}" bindtap="onSelectTheme">
+          <text class="theme-icon">{{item.icon}}</text>
+          <text class="theme-label">{{item.label}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="section">
+      <view class="section-title">强调色</view>
+      <view class="color-grid">
+        <view wx:for="{{accentColors}}" wx:key="id" class="color-item {{accentColor===item.id?'active':''}}" data-id="{{item.id}}" data-color="{{item.color}}" bindtap="onSelectColor">
+          <view class="color-dot" style="background-color:{{item.color}}"></view>
+          <text class="color-label">{{item.id}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

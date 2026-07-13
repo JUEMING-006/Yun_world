@@ -1,0 +1,11 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="Plus 套餐" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y>
+    <view class="hero"><text class="hero-title">升级 Plus</text><text class="hero-desc">解锁全部高级功能，获得更好的 AI 体验</text></view>
+    <view class="compare-table">
+      <view class="table-header"><text class="col-feature">功能</text><text class="col-free">免费版</text><text class="col-plus">Plus</text></view>
+      <view wx:for="{{features}}" wx:key="name" class="table-row"><text class="col-feature">{{item.name}}</text><text class="col-free">{{item.free}}</text><text class="col-plus">{{item.plus}}</text></view>
+    </view>
+    <view class="subscribe-area"><t-button theme="primary" size="large" block="{{true}}" shape="round" bind:tap="onSubscribe">订阅 Plus</t-button></view>
+  </scroll-view>
+</view>

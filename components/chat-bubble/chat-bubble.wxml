@@ -1,0 +1,100 @@
+<!--
+  聊天消息气泡
+  对应 Kuikly: ChatUserMessage.kt (用户消息) + ChatAIMessage.kt (AI 消息)
+-->
+
+<!-- 用户消息（右侧） -->
+<view wx:if="{{role === 'user'}}" class="msg-row user">
+  <view class="bubble-wrap user">
+    <!-- 图片 -->
+    <view wx:if="{{images.length > 0}}" class="bubble-images">
+      <image
+        wx:for="{{images}}"
+        wx:key="*this"
+        class="bubble-image"
+        src="{{item}}"
+        mode="widthFix"
+        data-url="{{item}}"
+        bindtap="onPreviewImage"
+      />
+    </view>
+    <!-- 文本 -->
+    <text wx:if="{{content}}" class="bubble-text user" user-select>{{content}}</text>
+  </view>
+</view>
+
+<!-- AI 消息（左侧） -->
+<view wx:else class="msg-row assistant">
+  <!-- 头像 暂时不需要头像-->
+  <!-- <view class="avatar-wrap">
+    <t-image
+      wx:if="{{avatarUrl}}"
+      src="{{avatarUrl}}"
+      class="avatar"
+      mode="aspectFill"
+      shape="circle"
+    />
+    <view wx:else class="avatar default-avatar">
+      <text class="avatar-text">L</text>
+    </view>
+  </view> -->
+
+  <view class="bubble-wrap assistant">
+    <!-- 思考内容（可折叠） -->
+    <view wx:if="{{thinking || isThinking}}" class="thinking-section">
+      <view class="thinking-header" bindtap="toggleThinking">
+        <t-icon name="{{showThinking ? 'chevron-down' : 'chevron-right'}}" size="28rpx" color="var(--text-secondary)" />
+        <text class="thinking-title">{{isThinking ? '思考中...' : '已深度思考'}}</text>
+      </view>
+      <view wx:if="{{showThinking && thinking}}" class="thinking-content">
+        <text class="thinking-text" user-select>{{thinking}}</text>
+      </view>
+    </view>
+
+    <!-- 搜索结果 -->
+    <view wx:if="{{searchResults.length > 0}}" class="search-section">
+      <view
+        wx:for="{{searchResults}}"
+        wx:for-item="group"
+        wx:key="keyword"
+        class="search-group"
+      >
+        <text class="search-keyword">🔍 {{group.keyword}}</text>
+        <view
+          wx:for="{{group.results}}"
+          wx:for-item="result"
+          wx:key="url"
+          class="search-item"
+          data-url="{{result.url}}"
+          bindtap="onSearchResultClick"
+        >
+          <text class="search-title">{{result.title}}</text>
+          <text class="search-url">{{result.url}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 正文内容（使用 Markdown 渲染器） -->
+    <view class="content-section">
+      <markdown-renderer wx:if="{{content}}" content="{{content}}" />
+
+      <!-- 流式加载动画 -->
+      <view wx:if="{{isStreaming && !content}}" class="typing-indicator">
+        <view class="dot"></view>
+        <view class="dot"></view>
+        <view class="dot"></view>
+      </view>
+
+      <!-- 流式光标 -->
+      <text wx:if="{{isStreaming && content}}" class="streaming-cursor">〇</text>
+    </view>
+
+    <!-- 操作栏 暂时不需 TODO -->
+    <!-- <view wx:if="{{content && !isStreaming}}" class="bubble-actions">
+      <view class="action-item" bindtap="onCopyContent">
+        <t-icon name="copy" size="32rpx" color="var(--text-secondary)" />
+      </view>
+    </view> -->
+
+  </view>
+</view>

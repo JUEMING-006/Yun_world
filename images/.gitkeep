@@ -1,0 +1,6 @@
+# 图片资源目录
+
+将以下资源从 Kuikly 项目复制到此目录：
+- logo_lumina_v1.png  (Logo)
+
+或在 app.wxss 中使用网络图片替代。

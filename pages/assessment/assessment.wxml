@@ -1,0 +1,39 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="心理测评" show-back="{{true}}" bind:back="onBack" />
+  <view class="tabs">
+    <view class="tab {{activeTab===0?'active':''}}" data-tab="0" bindtap="onTabChange">量表列表</view>
+    <view class="tab {{activeTab===1?'active':''}}" data-tab="1" bindtap="onTabChange">测评历史</view>
+  </view>
+  <scroll-view class="content" scroll-y>
+    <view wx:if="{{activeTab===0}}">
+      <view wx:if="{{isLoading}}" class="loading"><text>加载中...</text></view>
+      <view wx:elif="{{scales.length===0}}" class="empty"><t-empty description="暂无可用量表" /></view>
+      <view wx:else class="scale-list">
+        <view wx:for="{{scales}}" wx:key="testId" class="scale-card" data-id="{{item.testId}}" data-name="{{item.name}}" bindtap="onStartAssessment">
+          <view class="scale-info">
+            <text class="scale-name">{{item.name}}</text>
+            <text class="scale-desc">{{item.description}}</text>
+            <view class="scale-meta">
+              <text>{{item.questionCount}} 题</text>
+              <text>约 {{item.estimatedMinutes}} 分钟</text>
+            </view>
+          </view>
+          <t-icon name="chevron-right" size="32rpx" color="#999" />
+        </view>
+      </view>
+    </view>
+    <view wx:else>
+      <view wx:if="{{history.length===0}}" class="empty"><t-empty description="暂无测评记录" /></view>
+      <view wx:else class="history-list">
+        <view wx:for="{{history}}" wx:key="sessionId" class="history-card" data-reportid="{{item.reportId}}" bindtap="onViewReport">
+          <text class="history-name">{{item.testName}}</text>
+          <view class="history-meta">
+            <text class="history-score">得分: {{item.overallScore}}</text>
+            <text class="history-level">{{item.overallLevel}}</text>
+          </view>
+          <text class="history-time">{{item.startedAt}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
