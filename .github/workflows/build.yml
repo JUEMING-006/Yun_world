@@ -35,8 +35,19 @@ jobs:
             $bmp.Dispose()
           }
 
-      - name: Install dependencies (npm)
-        run: npm install --prefix .
+      - name: Diagnose: list files and check JSON
+        run: |
+          Write-Host "=== Root files ==="
+          Get-ChildItem -Force | Format-Table Name, Length
+          Write-Host "=== package.json ==="
+          Get-Content package.json -Raw
+          Write-Host "=== tauri.conf.json ==="
+          Get-Content src-tauri\tauri.conf.json -Raw
+          Write-Host "=== Cargo.toml ==="
+          Get-Content src-tauri\Cargo.toml -Raw
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
 
       - name: Build
         run: npx tauri build
