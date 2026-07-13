@@ -8,13 +8,13 @@
  *
  * @emits close
  */
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useSettingsStore } from '@/stores/settingsStore'
 import { useAI } from '@/composables/useAI'
 import { setSetting } from '@/composables/useTauriCommands'
 
 const settingsStore = useSettingsStore()
-const { aiAvailable, testConnection, loading } = useAI()
+const { testConnection, loading } = useAI()
 
 const emit = defineEmits<{
   (e: 'close'): void

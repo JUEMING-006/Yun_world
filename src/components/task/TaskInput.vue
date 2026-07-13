@@ -11,14 +11,13 @@
  *  - 语音录入后自动润色（若 settings.ai_voice_polish_enabled）
  *  - 闪念的 AI 整理触发点在 FlashCard，不在此处
  */
-import { ref, computed, nextTick } from 'vue'
-import { useTauriCommands } from '@/composables/useTauriCommands'
+import { ref } from 'vue'
 import { useTaskStore } from '@/stores/taskStore'
 import { useFlashStore } from '@/stores/flashStore'
 import { useVoice } from '@/composables/useVoice'
 import { useAI } from '@/composables/useAI'
 import { useSettingsStore } from '@/stores/settingsStore'
-import type { PanelTab, NewTask } from '@/types'
+import type { PanelTab } from '@/types'
 
 const props = defineProps<{ tab: PanelTab }>()
 
@@ -26,12 +25,11 @@ const emit = defineEmits<{
   (e: 'open-add-modal'): void
 }>()
 
-const { createTask, createFlashNote } = useTauriCommands()
 const taskStore = useTaskStore()
 const flashStore = useFlashStore()
-const { isListening, transcript, interimTranscript, start, stop, clear } = useVoice()
-const { loading: aiLoading, polish } = useAI()
 const settings = useSettingsStore()
+const { isListening, transcript, start, stop, clear } = useVoice()
+const { polish } = useAI()
 
 const inputText = ref('')
 const expanded = ref(false)

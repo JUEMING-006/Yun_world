@@ -6,16 +6,14 @@
  * 整理成功后在卡片下方弹出 AiPreviewCard 确认。
  */
 import { ref, computed } from 'vue'
-import type { OrganizedTask } from '@/types'
+import type { OrganizedTask, NewTask } from '@/types'
 import FlashCard from './FlashCard.vue'
 import AiPreviewCard from './AiPreviewCard.vue'
 import { useFlashStore } from '@/stores/flashStore'
 import { useAI } from '@/composables/useAI'
-import { useSettingsStore } from '@/stores/settingsStore'
 
 const flashStore = useFlashStore()
-const settingsStore = useSettingsStore()
-const { aiAvailable, aiOrganizeFlash } = useAI()
+const { aiAvailable, organizeFlash } = useAI()
 
 const previewForId = ref<number | null>(null) // 当前正在展示预览卡的闪念 ID
 const organizingId = ref<number | null>(null) // 正在调用 AI 的闪念 ID
@@ -31,7 +29,7 @@ async function onAiOrganize(id: number) {
   if (!note) return
   organizingId.value = id
   try {
-    const result = await aiOrganizeFlash(note.content)
+    const result = await organizeFlash(note.content)
     if (result) {
       previewData.value = { original: note.content, organized: result }
       previewForId.value = id
@@ -43,7 +41,13 @@ async function onAiOrganize(id: number) {
 
 function onConfirm() {
   if (previewData.value && previewForId.value !== null) {
-    void flashStore.transferToTask(previewForId.value, previewData.value.organized)
+    const org = previewData.value.organized
+    void flashStore.transferToTask(previewForId.value, {
+      title: org.task,
+      deadline: org.deadline ?? undefined,
+      priority: org.priority,
+      source: 'flash_ai',
+    } satisfies NewTask)
   }
   closePreview()
 }

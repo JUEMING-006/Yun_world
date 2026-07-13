@@ -17,9 +17,8 @@ const emit = defineEmits<{
   (e: 'delete', id: number): void
 }>()
 
-function hasUrgent(tasks: Task[]): boolean {
-  return tasks.some((t) => t.color_level >= 3)
-}
+// listKey/tasks 用于 template，props 本身在 script 中不直接使用
+void props
 </script>
 
 <template>
