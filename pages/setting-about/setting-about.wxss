@@ -1,0 +1,14 @@
+.page { min-height:100vh; background:var(--bg-color); display:flex; flex-direction:column; }
+.content { flex:1; }
+.logo-section { display:flex; flex-direction:column; align-items:center; padding:60rpx 0 40rpx; }
+.logo { width:120rpx; height:120rpx; border-radius:24rpx; margin-bottom:16rpx; }
+.app-name { font-size:48rpx; font-weight:700; }
+.version { font-size:24rpx; color:var(--text-secondary); margin-top:8rpx; }
+.section { margin:24rpx; }
+.section-title { font-size:26rpx; color:var(--text-secondary); padding:16rpx; font-weight:500; }
+.item { display:flex; align-items:center; gap:16rpx; padding:28rpx 24rpx; background:var(--card-bg); border-radius:var(--radius-md); margin-bottom:2rpx; }
+.item:first-of-type { border-radius:var(--radius-md) var(--radius-md) 0 0; }
+.item:last-of-type { border-radius:0 0 var(--radius-md) var(--radius-md); }
+.item-label { flex:1; font-size:30rpx; }
+.item-value { font-size:24rpx; color:var(--text-secondary); max-width:400rpx; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.footer { text-align:center; padding:48rpx 0; font-size:24rpx; color:var(--text-placeholder); }

@@ -1,0 +1,32 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="测评报告" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y>
+    <view wx:if="{{isLoading}}" class="loading"><text>加载中...</text></view>
+    <view wx:elif="{{report}}" class="report">
+      <view class="report-header">
+        <text class="report-title">{{report.title}}</text>
+        <view class="score-circle">
+          <text class="score-num">{{report.overallScore}}</text>
+          <text class="score-label">总分</text>
+        </view>
+        <text class="overall-level" style="color:{{report.overallLevel === 'normal' ? '#0cd053' : report.overallLevel === 'severe' ? '#F44336' : '#FF9800'}}">{{report.overallLevel === 'normal' ? '正常' : report.overallLevel === 'mild' ? '轻度' : report.overallLevel === 'moderate' ? '中度' : report.overallLevel === 'severe' ? '重度' : report.overallLevel}}</text>
+      </view>
+      <view wx:if="{{report.aiSummary}}" class="section">
+        <text class="section-title">AI 解读</text>
+        <text class="section-body">{{report.aiSummary}}</text>
+      </view>
+      <view wx:if="{{report.dimensions.length > 0}}" class="section">
+        <text class="section-title">维度分析</text>
+        <view wx:for="{{report.dimensions}}" wx:key="name" class="dimension-item">
+          <view class="dim-header"><text class="dim-name">{{item.name}}</text><text class="dim-score">{{item.score}}</text></view>
+          <view class="dim-bar"><view class="dim-fill" style="width:{{item.score}}%"></view></view>
+          <text class="dim-level">{{item.level}}</text>
+        </view>
+      </view>
+      <view wx:if="{{report.suggestions.length > 0}}" class="section">
+        <text class="section-title">建议</text>
+        <view wx:for="{{report.suggestions}}" wx:key="*this" class="suggestion-item"><text>{{item}}</text></view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

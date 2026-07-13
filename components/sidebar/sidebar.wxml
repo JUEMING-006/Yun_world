@@ -1,0 +1,44 @@
+<view wx:if="{{visible}}" class="sidebar-mask" bindtap="onMaskClick">
+  <view class="sidebar-content" catchtap="stopPropagation">
+    <!-- Nav: Lumina + tools -->
+    <view class="sidebar-header">
+      <text class="sidebar-title">Lumina</text>
+      <view class="sidebar-tools">
+        <view class="tool-btn" bindtap="onSearchTap"><t-icon name="search" size="36rpx" color="#333" /></view>
+        <view class="tool-btn"><t-icon name="notification" size="36rpx" color="#333" /></view>
+        <image class="tool-avatar" src="{{userAvatar || '/images/avatar_example.webp'}}" mode="aspectFill" />
+      </view>
+    </view>
+    <!-- New chat -->
+    <view class="new-chat-btn" bindtap="onNewChat">
+      <t-icon name="add" size="40rpx" color="#fff" />
+      <text class="new-chat-text">New Chat</text>
+    </view>
+    <!-- Agent list -->
+    <scroll-view class="agent-list" scroll-y="{{true}}">
+      <text class="section-title">AI Partners</text>
+      <view wx:for="{{agents}}" wx:key="agentId" class="agent-item {{item.agentId === currentAgentId ? 'active' : ''}}" data-id="{{item.agentId}}" bindtap="onSelectAgent">
+        <view class="agent-avatar-wrap">
+          <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}" class="agent-avatar" mode="aspectFill" />
+          <view wx:else class="agent-avatar default"><text class="agent-avatar-text">{{item.name[0] || 'A'}}</text></view>
+        </view>
+        <view class="agent-info">
+          <text class="agent-name">{{item.name}}</text>
+          <text class="agent-desc">{{item.description}}</text>
+        </view>
+      </view>
+      <view wx:if="{{agents.length === 0}}" class="empty-agents"><text class="empty-text">No agents</text></view>
+    </scroll-view>
+    <!-- Bottom function bar -->
+    <view class="sidebar-footer">
+      <view class="function-bar">
+        <view class="func-btn" bindtap="onFuncPsychTest"><t-icon name="heart" size="36rpx" /></view>
+        <view class="func-btn" bindtap="onFuncKnowledge"><t-icon name="file" size="36rpx" /></view>
+        <view class="func-btn" bindtap="onFuncCircle"><t-icon name="chat" size="36rpx" /></view>
+        <view class="func-btn" bindtap="onFuncVideo"><t-icon name="play" size="36rpx" /></view>
+        <view class="func-btn" bindtap="onFuncSetting"><t-icon name="setting" size="36rpx" /></view>
+      </view>
+      <view class="more-btn"><t-icon name="ellipsis" size="36rpx" color="#333" /></view>
+    </view>
+  </view>
+</view>

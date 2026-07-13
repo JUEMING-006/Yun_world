@@ -1,0 +1,62 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="AI Video" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y bindscrolltolower="onLoadMore">
+    <view wx:if="{{isLoading && videos.length===0}}" class="loading"><text>Loading...</text></view>
+    <view wx:elif="{{videos.length===0}}" class="empty"><t-empty description="No videos yet" /></view>
+    <view wx:else class="video-list">
+      <view wx:for="{{videos}}" wx:key="videoCreationId" class="video-card">
+        <view class="video-thumb" wx:if="{{item.sourceImageUrl}}">
+          <image src="{{item.sourceImageUrl}}" mode="aspectFill" class="thumb-img" />
+          <view wx:if="{{item.isProcessing}}" class="status-overlay"><text>Processing...</text></view>
+          <view wx:if="{{item.isCompleted}}" class="play-btn" data-url="{{item.videoUrl}}" bindtap="onPlayVideo">
+            <t-icon name="play" size="48rpx" color="#fff" />
+          </view>
+        </view>
+        <view class="video-info">
+          <text class="video-prompt">{{item.prompt}}</text>
+          <view class="video-meta">
+            <text class="meta-text">{{item.duration}}s / {{item.resolution}}</text>
+            <text class="status-text {{item.status}}">{{item.isCompleted?'Done':item.isFailed?'Failed':'Processing'}}</text>
+          </view>
+          <view wx:if="{{item.errorMessage}}" class="error-msg">{{item.errorMessage}}</view>
+          <view class="video-actions">
+            <view wx:if="{{item.isFailed}}" class="action-btn" data-id="{{item.videoCreationId}}" bindtap="onRetryVideo"><t-icon name="refresh" size="32rpx" /> Retry</view>
+            <view class="action-btn danger" data-id="{{item.videoCreationId}}" bindtap="onDeleteVideo"><t-icon name="delete" size="32rpx" /> Delete</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="fab" bindtap="onShowCreate"><t-icon name="add" size="48rpx" color="#fff" /></view>
+  <t-popup visible="{{showCreate}}" placement="bottom" bind:visible-change="onCloseCreate">
+    <view class="create-sheet">
+      <view class="sheet-title">Create AI Video</view>
+      <view class="form-item">
+        <text class="form-label">Prompt *</text>
+        <t-textarea placeholder="Describe the video you want..." value="{{prompt}}" maxlength="{{500}}" bind:change="onPromptInput" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">Reference Image (optional)</text>
+        <view class="source-img" wx:if="{{sourceImageUrl}}">
+          <image src="{{sourceImageUrl}}" mode="aspectFill" class="source-preview" />
+        </view>
+        <view class="add-img-btn" bindtap="onChooseSourceImage">
+          <t-icon name="add" size="40rpx" color="#999" />
+        </view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">Duration</text>
+        <view class="option-row">
+          <view wx:for="{{durationOptions}}" wx:key="id" class="option-btn {{duration===item.id?'active':''}}" data-id="{{item.id}}" bindtap="onDurationSelect">{{item.label}}</view>
+        </view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">Resolution</text>
+        <view class="option-row">
+          <view wx:for="{{resolutionOptions}}" wx:key="id" class="option-btn {{resolution===item.id?'active':''}}" data-id="{{item.id}}" bindtap="onResolutionSelect">{{item.label}}</view>
+        </view>
+      </view>
+      <t-button theme="primary" block="{{true}}" loading="{{isCreating}}" bind:tap="onCreateVideo">Generate</t-button>
+    </view>
+  </t-popup>
+</view>

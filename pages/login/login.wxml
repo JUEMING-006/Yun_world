@@ -1,0 +1,48 @@
+<view class="login-page" style="padding-top: {{statusBarHeight}}px;">
+  <view class="top-bar">
+    <view class="top-bar-right" bindtap="onShowAgreement">
+      <t-icon name="location" size="36rpx" color="var(--accent-color)" />
+      <text class="top-bar-tip">Campus only</text>
+    </view>
+  </view>
+  <view class="login-content">
+    <view class="brand-section">
+      <view class="brand-row">
+        <image class="brand-logo" src="/images/logo_lumina_v1.png" mode="aspectFit" />
+        <text class="brand-title gradient-text">Lumina</text>
+      </view>
+      <text class="brand-subtitle">Lumina</text>
+    </view>
+    <view class="input-section">
+      <t-input class="account-input" placeholder="{{isAgreeRead ? 'Phone or email' : 'Agree to terms first'}}" placeholderStyle="color: #999; font-size: 30rpx;" value="{{accountInput}}" type="text" confirm-type="next" maxlength="{{50}}" bind:change="onAccountInput" bind:confirm="onAccountConfirm" disabled="{{!isAgreeRead}}" />
+    </view>
+    <view class="submit-section">
+      <t-button theme="primary" size="large" block="{{true}}" loading="{{isSubmitting}}" disabled="{{!isAgreeRead || !accountInput}}" shape="round" bind:tap="onSubmitTap">Send Code</t-button>
+    </view>
+    <view class="agreement-row">
+      <view class="agreement-check" bindtap="onShowAgreement">
+        <view class="checkbox {{isAgreeRead ? 'checked' : ''}}"><text wx:if="{{isAgreeRead}}" class="check-icon">+</text></view>
+        <text class="agreement-text">I agree to <text class="agreement-link" bindtap="onShowAgreement">Terms</text></text>
+      </view>
+    </view>
+  </view>
+  <t-popup visible="{{showAgreement}}" placement="bottom" bind:visible-change="onCloseAgreement" close-on-overlay-click="{{false}}">
+    <view class="agreement-sheet">
+      <view class="sheet-header">
+        <view class="sheet-header-title">Please read and agree</view>
+        <view class="sheet-header-spacer"></view>
+        <view class="sheet-close-btn" bindtap="onCloseAgreement"><t-icon name="close" size="36rpx" /></view>
+      </view>
+      <view class="agreement-list">
+        <view wx:for="{{agreements}}" wx:key="id" class="agreement-item" data-url="{{item.url}}" data-title="{{item.title}}" bindtap="onOpenAgreementDetail">
+          <t-icon name="file" size="36rpx" color="var(--text-secondary)" />
+          <text class="agreement-item-title">{{item.title}}</text>
+          <t-icon name="chevron-right" size="32rpx" color="var(--text-secondary)" />
+        </view>
+      </view>
+      <view class="sheet-footer safe-bottom">
+        <view class="agree-btn" bindtap="onAgreeAll">I have read and agree to all</view>
+      </view>
+    </view>
+  </t-popup>
+</view>

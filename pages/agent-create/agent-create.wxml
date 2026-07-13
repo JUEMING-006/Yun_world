@@ -1,0 +1,40 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="创建智能体" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y>
+    <view class="form">
+      <view class="avatar-section" bindtap="onChooseAvatar">
+        <view class="avatar-wrap">
+          <image wx:if="{{avatarUrl}}" src="{{avatarUrl}}" class="avatar" mode="aspectFill" />
+          <view wx:else class="avatar-placeholder">
+            <t-icon name="camera" size="48rpx" color="#999" />
+            <text class="avatar-hint">选择头像</text>
+          </view>
+        </view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">名称 *</text>
+        <t-input placeholder="给你的智能体起个名字" value="{{name}}" maxlength="{{20}}" bind:change="onNameInput" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">描述</text>
+        <t-textarea placeholder="简单描述一下这个智能体" value="{{description}}" maxlength="{{200}}" bind:change="onDescInput" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">性格特点</text>
+        <t-textarea placeholder="例如：温柔、幽默、专业..." value="{{personality}}" maxlength="{{500}}" bind:change="onPersonalityInput" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">性别</text>
+        <view class="gender-row">
+          <view wx:for="{{genderOptions}}" wx:key="id" class="gender-btn {{gender===item.id?'active':''}}" data-id="{{item.id}}" bindtap="onGenderSelect">
+            <text class="gender-icon">{{item.icon}}</text>
+            <text>{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="form-actions">
+        <t-button theme="primary" block="{{true}}" loading="{{isCreating}}" bind:tap="onCreate">创建智能体</t-button>
+      </view>
+    </view>
+  </scroll-view>
+</view>

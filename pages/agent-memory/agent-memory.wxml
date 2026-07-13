@@ -1,0 +1,24 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="智能体记忆" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y bindscrolltolower="onLoadMore">
+    <view wx:if="{{isLoading && memories.length===0}}" class="loading"><text>加载中...</text></view>
+    <view wx:elif="{{memories.length===0}}" class="empty"><t-empty description="暂无记忆" /></view>
+    <view wx:else class="memory-list">
+      <view class="total">共 {{total}} 条记忆</view>
+      <view wx:for="{{memories}}" wx:key="memoryId" class="memory-card">
+        <text class="memory-content">{{item.memory}}</text>
+        <view wx:if="{{item.topics.length > 0}}" class="memory-topics">
+          <text wx:for="{{item.topics}}" wx:for-item="topic" wx:key="*this" class="topic-tag">{{topic}}</text>
+        </view>
+        <view class="memory-footer">
+          <text class="memory-time">{{item.updatedAt || item.createdAt}}</text>
+          <view class="memory-copy" data-content="{{item.memory}}" bindtap="onCopyMemory">
+            <t-icon name="copy" size="28rpx" color="#999" />
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{isLoading}}" class="load-more"><text>加载更多...</text></view>
+      <view wx:elif="{{!hasMore && memories.length > 0}}" class="load-more"><text>没有更多了</text></view>
+    </view>
+  </scroll-view>
+</view>

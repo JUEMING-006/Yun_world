@@ -1,0 +1,47 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="Guardian" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y>
+    <view class="info-section">
+      <t-icon name="info-circle" size="32rpx" color="var(--accent-color)" />
+      <text class="info-text">Bind parent account to manage child usage</text>
+    </view>
+    <view class="menu-list">
+      <view class="menu-item" bindtap="goToRealName">
+        <view class="item-left"><t-icon name="id-card" size="36rpx" color="var(--accent-color)" /><text>Real Name Auth</text></view>
+        <t-icon name="chevron-right" size="32rpx" color="#999" />
+      </view>
+      <view class="menu-item" bindtap="onShowInvite">
+        <view class="item-left"><t-icon name="add-circle" size="36rpx" color="var(--accent-color)" /><text>Send Invitation</text></view>
+        <t-icon name="chevron-right" size="32rpx" color="#999" />
+      </view>
+    </view>
+    <view wx:if="{{familyMembers.length > 0}}" class="section-title">Family Members</view>
+    <view class="member-list">
+      <view wx:for="{{familyMembers}}" wx:key="id" class="member-card">
+        <text class="member-name">{{item.name}}</text>
+        <text class="member-relation">{{item.relation === 'parent' ? 'Parent' : 'Child'}}</text>
+      </view>
+    </view>
+  </scroll-view>
+  <t-popup visible="{{showInvite}}" placement="bottom" bind:visible-change="onCloseInvite">
+    <view class="invite-sheet">
+      <text class="sheet-title">Send Invitation</text>
+      <view class="form-item">
+        <text class="form-label">Relation</text>
+        <view class="option-row">
+          <view class="option-btn {{inviteRelation==='parent'?'active':''}}" data-id="parent" bindtap="onRelationSelect">Parent</view>
+          <view class="option-btn {{inviteRelation==='child'?'active':''}}" data-id="child" bindtap="onRelationSelect">Child</view>
+        </view>
+      </view>
+      <view class="form-item">
+        <text class="form-label">Contact</text>
+        <view class="option-row" style="margin-bottom:12rpx">
+          <view class="option-btn {{inviteType==='phone'?'active':''}}" data-id="phone" bindtap="onTypeSelect">Phone</view>
+          <view class="option-btn {{inviteType==='email'?'active':''}}" data-id="email" bindtap="onTypeSelect">Email</view>
+        </view>
+        <t-input placeholder="{{inviteType==='phone'?'Phone number':'Email'}}" value="{{inviteContact}}" bind:change="onContactInput" />
+      </view>
+      <t-button theme="primary" block="{{true}}" loading="{{isSending}}" bind:tap="onSendInvitation">Send</t-button>
+    </view>
+  </t-popup>
+</view>

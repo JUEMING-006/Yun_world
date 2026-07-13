@@ -1,0 +1,15 @@
+<view class="page" style="padding-top:{{statusBarHeight}}px;">
+  <top-bar title="隐私与安全" show-back="{{true}}" bind:back="onBack" />
+  <scroll-view class="content" scroll-y>
+    <view class="list">
+      <view wx:for="{{items}}" wx:key="id" class="item {{item.danger?'danger':''}}" data-id="{{item.id}}" bindtap="onItemClick">
+        <view class="item-info">
+          <text class="item-title">{{item.title}}</text>
+          <text class="item-desc">{{item.desc}}</text>
+        </view>
+        <t-switch wx:if="{{item.switch}}" checked="{{item.value}}" data-id="{{item.id}}" bind:change="onSwitchChange" />
+        <t-icon wx:elif="{{item.arrow}}" name="chevron-right" size="32rpx" color="{{item.danger?'var(--error-color)':'#999'}}" />
+      </view>
+    </view>
+  </scroll-view>
+</view>
