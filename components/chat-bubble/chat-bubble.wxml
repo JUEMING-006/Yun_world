@@ -25,8 +25,8 @@
 
 <!-- AI 消息（左侧） -->
 <view wx:else class="msg-row assistant">
-  <!-- 头像 -->
-  <view class="avatar-wrap">
+  <!-- 头像 暂时不需要头像-->
+  <!-- <view class="avatar-wrap">
     <t-image
       wx:if="{{avatarUrl}}"
       src="{{avatarUrl}}"
@@ -37,10 +37,9 @@
     <view wx:else class="avatar default-avatar">
       <text class="avatar-text">L</text>
     </view>
-  </view>
+  </view> -->
 
   <view class="bubble-wrap assistant">
-
     <!-- 思考内容（可折叠） -->
     <view wx:if="{{thinking || isThinking}}" class="thinking-section">
       <view class="thinking-header" bindtap="toggleThinking">
@@ -87,15 +86,15 @@
       </view>
 
       <!-- 流式光标 -->
-      <text wx:if="{{isStreaming && content}}" class="streaming-cursor">|</text>
+      <text wx:if="{{isStreaming && content}}" class="streaming-cursor">〇</text>
     </view>
 
-    <!-- 操作栏 -->
-    <view wx:if="{{content && !isStreaming}}" class="bubble-actions">
+    <!-- 操作栏 暂时不需 TODO -->
+    <!-- <view wx:if="{{content && !isStreaming}}" class="bubble-actions">
       <view class="action-item" bindtap="onCopyContent">
         <t-icon name="copy" size="32rpx" color="var(--text-secondary)" />
       </view>
-    </view>
+    </view> -->
 
   </view>
 </view>

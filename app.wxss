@@ -150,8 +150,3 @@ button::after {
   border-radius: 16px;
   padding: 4%;
 }
-
-/* 安全区域底部 */
-.safe-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-}

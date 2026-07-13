@@ -1,63 +1,139 @@
 <!-- Chat page -->
-<view class="chat-page">
+<view class="chat-page" style="padding-top: {{statusBarHeight}}px; padding-bottom: {{safeBottom}}px">
+
   <!-- Main content (shifts when sidebar opens) -->
   <view class="main-content {{isSidebarVisible ? 'sidebar-open' : ''}}">
-    <!-- Message list -->
-    <scroll-view class="message-list" scroll-y="{{true}}" scroll-into-view="{{scrollToView}}" scroll-with-animation="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}" bindscrolltoupper="onScrollToUpper">
-      <view wx:if="{{isLoadingMore}}" class="load-more"><view class="loading-spinner"></view><text class="load-more-text">Loading history...</text></view>
-      <view wx:elif="{{hasMore}}" class="load-more-hint" bindtap="onLoadMore"><text class="load-more-text">Load more</text></view>
-      <view wx:for="{{messages}}" wx:key="messageId" id="msg-{{index}}" class="message-item">
-        <chat-bubble role="{{item.role}}" content="{{item.content}}" thinking="{{item.thinking}}" createTime="{{item.createTime}}" isStreaming="{{item.isStreaming}}" isThinking="{{item.isThinking}}" searchResults="{{item.searchResults}}" images="{{item.images}}" avatarUrl="{{currentAgent.avatarUrl}}" bind:retry="onRetryMessage" />
+
+    <!-- Message list  -->
+    <scroll-view 
+      class="message-list" 
+      scroll-y="{{true}}" 
+      scroll-into-view="{{scrollToView}}" 
+      scroll-with-animation="{{true}}" 
+      enhanced="{{true}}" 
+      show-scrollbar="{{false}}" 
+      bindscrolltoupper="onScrollToUpper"
+    >
+      <!-- 加载状态 -->
+      <view wx:if="{{isLoadingMore}}" class="load-more">
+        <view class="loading-spinner"></view>
+        <text class="load-more-text">Loading history...</text>
       </view>
+      <!-- 加载更多 -->
+      <view wx:elif="{{hasMore}}" class="load-more-hint" bindtap="onLoadMore">
+        <text class="load-more-text">Load more</text>
+      </view>
+      <!-- 消息列表 -->
+      <view wx:for="{{messages}}" wx:key="messageId" id="msg-{{index}}" class="message-item">
+        <chat-bubble 
+          role="{{item.role}}"
+          content="{{item.content}}"
+          thinking="{{item.thinking}}" 
+          createTime="{{item.createTime}}" 
+          isStreaming="{{item.isStreaming}}" 
+          isThinking="{{item.isThinking}}" 
+          searchResults="{{item.searchResults}}" 
+          images="{{item.images}}" 
+          avatarUrl="{{currentAgent.avatarUrl}}" 
+          bind:retry="onRetryMessage" 
+        />
+      </view>
+      <!-- 安全区 -->
       <view class="list-bottom-spacer"></view>
     </scroll-view>
-    <!-- Nav bar -->
-    <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+  
+    <!-- Nav bar check over -->
+    <view class="nav-bar">
       <view class="nav-bar-content">
-        <view class="nav-btn menu-btn {{isMenuJelly ? 'jelly' : ''}}" bindtap="onToggleSidebar" bindanimationend="onMenuJellyEnd"><t-icon name="view-list" size="40rpx" color="#333" /></view>
-        <view class="nav-agent-btn {{isAgentJelly ? 'jelly' : ''}}" bindtap="onShowAgentActions" bindanimationend="onAgentJellyEnd">
-          <view class="nav-agent-avatar" wx:if="{{currentAgent.avatarUrl}}"><image src="{{currentAgent.avatarUrl}}" class="nav-avatar-img" mode="aspectFill" /></view>
-          <view class="nav-agent-avatar default" wx:else><text>{{currentAgent.name[0] || 'L'}}</text></view>
+        <!-- 侧边栏button -->
+        <view 
+          class="nav-btn menu-btn {{isMenuJelly ? 'jelly' : ''}}"
+          bindtap="onToggleSidebar" 
+          bindanimationend="onMenuJellyEnd"
+        >
+          <t-icon name="view-list" size="40rpx" color="#333" />
+        </view>
+
+        <!-- agent info button -->
+        <view 
+          class="nav-agent-btn {{isAgentJelly ? 'jelly' : ''}}" 
+          bindtap="onShowAgentActions" 
+          bindanimationend="onAgentJellyEnd"
+        >
+          <view class="nav-agent-avatar" wx:if="{{currentAgent.avatarUrl}}">
+            <image src="{{currentAgent.avatarUrl}}" class="nav-avatar-img" mode="aspectFill" />
+          </view>
+          <view class="nav-agent-avatar default" wx:else>
+            <text>{{currentAgent.name[0] || 'AI'}}</text>
+          </view>
           <text class="nav-agent-name">{{currentAgent.name || 'Lumina'}}</text>
         </view>
+
         <view class="nav-btn placeholder"></view>
       </view>
     </view>
   </view>
 
   <!-- Bottom input bar (hidden when sidebar is open) -->
-  <view wx:if="{{!isSidebarVisible}}" class="bottom-bar safe-bottom" style="padding-bottom: calc(env(safe-area-inset-bottom) + {{keyboardHeight}}px);">
+  <view wx:if="{{!isSidebarVisible}}" class="bottom-bar" >
+    
+    <!-- 图片预览 -->
     <view wx:if="{{pendingImageUrl}}" class="pending-image-bar">
-      <view class="pending-image-wrap"><image src="{{pendingImageUrl}}" class="pending-image" mode="aspectFill" /><view class="pending-image-remove" bindtap="onRemovePendingImage"><t-icon name="close-circle" size="28rpx" color="#fff" /></view></view>
+      <view class="pending-image-wrap">
+        <image src="{{pendingImageUrl}}" class="pending-image" mode="aspectFill" />
+        <view class="pending-image-remove" bindtap="onRemovePendingImage">
+          <t-icon name="close-circle" size="28rpx" color="#fff" />
+        </view>
+      </view>
       <text class="pending-image-hint">Image attached</text>
     </view>
+
+    <!-- 深度思考 网络搜索 button -->
     <view class="mode-tags">
-      <view class="mode-tag {{isThinkingMode ? 'active' : ''}}" bindtap="onToggleThinking"><t-icon name="edit-1" size="28rpx" color="{{isThinkingMode ? '#fff' : '#666'}}" /><text>Deep Think</text></view>
-      <view class="mode-tag {{isSearchMode ? 'active' : ''}}" bindtap="onToggleSearch"><t-icon name="search" size="28rpx" color="{{isSearchMode ? '#fff' : '#666'}}" /><text>Search</text></view>
+      <view class="mode-tag {{isThinkingMode ? 'active' : ''}}" bindtap="onToggleThinking">
+        <t-icon name="ai-education" size="28rpx" color="{{isThinkingMode ? '#fff' : '#666'}}" /><text>Deep Think</text>
+      </view>
+      <view class="mode-tag {{isSearchMode ? 'active' : ''}}" bindtap="onToggleSearch">
+        <t-icon name="ai-search" size="28rpx" color="{{isSearchMode ? '#fff' : '#666'}}" /><text>Search</text>
+      </view>
     </view>
+
+    <!-- 输入区域 -->
     <view class="input-row">
-      <view class="attach-btn" bindtap="onAttach"><t-icon name="add-circle" size="48rpx" color="#999" /></view>
+
+      <!-- upload file -->
+      <view class="attach-btn" bindtap="onAttach">
+        <t-icon name="add-circle" size="48rpx" color="#999" />
+      </view>
+
+      <!-- input area -->
       <view class="input-wrap">
-        <t-input
+        <t-textarea
           class="text-input"
-          placeholder="hello! How are you?"
+          placeholder="今天怎么样？和小云聊聊吧！"
           value="{{inputValue}}"
-          type="text"
           confirm-type="send"
-          cursor="{{-1}}"
           borderless="{{true}}"
           adjust-position="{{true}}"
+          maxlength="5000"
+          disableDefaultPadding="{{true}}"
           bind:change="onInput"
           bind:focus="onInputFocus"
           bind:blur="onInputBlur"
-          bind:enter="onSend"
         />
       </view>
-      <view class="send-btn {{inputValue || pendingImageUrl ? 'active' : ''}} {{isJellyBounce ? 'jelly-bounce' : ''}}" bindtap="onSend" bindanimationend="onJellyEnd">
+
+      <!-- send button -->
+      <view 
+        class="send-btn active {{isJellyBounce ? 'jelly-bounce' : ''}}" 
+        bindtap="onSend" 
+        bindanimationend="onJellyEnd"
+      >
         <t-icon wx:if="{{isSending}}" name="loading" size="36rpx" color="#fff" />
         <t-icon wx:elif="{{inputValue || pendingImageUrl}}" name="arrow-up" size="36rpx" color="#fff" />
-        <t-icon wx:else name="sound" size="36rpx" color="#999" />
+        <t-icon wx:else name="call" size="36rpx" color="#fff" />
       </view>
+
     </view>
   </view>
 

@@ -63,7 +63,21 @@ Page({
     // 待发送的图片 URL（上传成功后）
     pendingImageUrl: '',
     // 输入框值（内联输入，不再使用 chat-bottom-bar 组件）
-    inputValue: ''
+    inputValue: '',
+
+    statusBarHeight: 20,
+    safeBottom: 20,
+    selectedFunc: 'psych'
+  },
+
+  attached() {
+    const sysInfo = wx.getSystemInfoSync()
+    const safeArea = sysInfo.safeArea || {}
+    const bottomInset = (sysInfo.screenHeight - safeArea.bottom) || 0
+    this.setData({
+      statusBarHeight: sysInfo.statusBarHeight || 20,
+      safeBottom: bottomInset || 20
+    })
   },
 
   // ── 内部状态（不参与 setData） ──
@@ -279,12 +293,7 @@ Page({
   // ═══════════════════════════════════════════
 
   onSend(e) {
-    // Support both input confirm and button tap
-    let text = (this.data.inputValue || '').trim()
-    // If triggered by input confirm, also check e.detail.value
-    if (!text && e && e.detail && e.detail.value) {
-      text = e.detail.value.trim()
-    }
+    const text = (this.data.inputValue || '').trim()
     if (!text && !this.data.pendingImageUrl) return
 
     const agentId = this._currentAgentId || (this.data.currentAgent && this.data.currentAgent.agentId)

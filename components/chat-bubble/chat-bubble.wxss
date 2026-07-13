@@ -10,7 +10,7 @@
 .msg-row {
   display: flex;
   margin-bottom: 12px;
-  padding: 0 12px;
+  padding: 0 0;
 }
 
 /* User message (right) */
@@ -65,7 +65,7 @@
 .bubble-wrap.assistant {
   max-width: 85%;
   background-color: transparent;
-  padding: 0 16px;
+  padding: 0 0;
 }
 
 .bubble-text.assistant {

@@ -10,6 +10,35 @@ Component({
     userAvatar: { type: String, value: '' }
   },
 
+  data: {
+    statusBarHeight: 20,
+    safeBottom: 0,
+    selectedFunc: 'psych'
+  },
+
+  attached() {
+    const sysInfo = wx.getSystemInfoSync()
+    const safeArea = sysInfo.safeArea || {}
+    const bottomInset = (sysInfo.screenHeight - safeArea.bottom) || 0
+    this.setData({
+      statusBarHeight: sysInfo.statusBarHeight || 20,
+      safeBottom: bottomInset || 0
+    })
+  },
+
+  onSelectFunc(e) {
+    const func = e.currentTarget.dataset.func
+    this.setData({ selectedFunc: func })
+    const map = {
+      psych: 'onFuncPsychTest',
+      knowledge: 'onFuncKnowledge',
+      circle: 'onFuncCircle',
+      video: 'onFuncVideo',
+      setting: 'onFuncSetting'
+    }
+    if (map[func]) this[map[func]]()
+  },
+
   methods: {
     onMaskClick() {
       this.triggerEvent('close')

@@ -6,21 +6,23 @@
 .bottom-bar {
   background-color: var(--chat-bottom-bar-bg);
   border-top: 2rpx solid var(--border-bottom-bar);
-  padding: 16rpx 24rpx;
+  padding: 0px 0px;
 }
 
 /* ── 模式切换 ── */
 .mode-bar {
   display: flex;
-  gap: 16rpx;
+  gap: 12px;
+  height: 48px;
   margin-bottom: 12rpx;
 }
 
 .mode-btn {
   display: flex;
   align-items: center;
-  gap: 6rpx;
-  padding: 8rpx 16rpx;
+  gap: 4px;
+  height: 32px;
+  padding: 8px 12px;
   border-radius: 99rpx;
   background-color: transparent;
   border: 1rpx solid transparent;
@@ -83,13 +85,9 @@
   width: 72rpx;
   height: 72rpx;
   border-radius: 50%;
-  background-color: var(--card-bg);
+  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
 }
 
-.send-btn.active {
-  background-color: var(--accent-color);
-}

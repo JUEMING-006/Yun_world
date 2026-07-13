@@ -18,24 +18,27 @@ Page({
   },
 
   checkLogin() {
-    if (!auth.isLoggedIn()) {
-      // 未登录 → 跳转登录页
-      wx.redirectTo({ url: '/pages/login/login' })
-      return
-    }
+    wx.redirectTo({
+      url: '/pages/chat/chat',
+    })
+    // if (!auth.isLoggedIn()) {
+    //   // 未登录 → 跳转登录页
+    //   wx.redirectTo({ url: '/pages/login/login' })
+    //   return
+    // }
 
-    // 已登录 → 刷新 Token 验证有效性
-    wx.showLoading({ title: '加载中...' })
+    // // 已登录 → 刷新 Token 验证有效性
+    // wx.showLoading({ title: '加载中...' })
 
-    authApi.refreshToken(auth.getRefreshToken())
-      .then(() => {
-        wx.hideLoading()
-        wx.redirectTo({ url: '/pages/chat/chat' })
-      })
-      .catch(() => {
-        wx.hideLoading()
-        auth.clearAuth()
-        wx.redirectTo({ url: '/pages/login/login' })
-      })
+    // authApi.refreshToken(auth.getRefreshToken())
+    //   .then(() => {
+    //     wx.hideLoading()
+    //     wx.redirectTo({ url: '/pages/chat/chat' })
+    //   })
+    //   .catch(() => {
+    //     wx.hideLoading()
+    //     auth.clearAuth()
+    //     wx.redirectTo({ url: '/pages/login/login' })
+    //   })
   }
 })

@@ -12,14 +12,16 @@
 
 .sidebar-content {
   position: absolute;
-  top: 0; left: 0;
-  width: 80%;
-  max-width: 300px;
+  top: 0; 
+  left: 0;
+  width: 74%;
   height: 100%;
   background-color: #fff;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   animation: slideIn 0.3s ease;
+  padding: 8px 16px 0px;
 }
 
 @keyframes slideIn {
@@ -31,12 +33,11 @@
 .sidebar-header {
   display: flex;
   align-items: center;
-  padding: 8px 16px 4px;
-  padding-top: calc(env(safe-area-inset-top) + 8px);
+  justify-content: space-between;
 }
 
 .sidebar-title {
-  font-size: 14px;
+  font-size: 26px;
   font-weight: 700;
   color: #333;
 }
@@ -93,14 +94,14 @@
 /* Agent list */
 .agent-list {
   flex: 1;
-  padding: 0 4px;
+  padding: 0 0;
+  margin-top: 12px;
 }
 
 .section-title {
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 700;
   color: #999;
-  margin: 10px 8px 4px;
 }
 
 /* Agent item: padding(8f,16f) */
@@ -168,56 +169,77 @@
 
 /* Bottom function bar: height(42f) */
 .sidebar-footer {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
+  padding: 0;
+  margin: 0;
   display: flex;
+  flex-direction: row;
+  overflow: hidden;
   align-items: center;
-  height: 42px;
-  padding: 0 16px;
-  padding-bottom: calc(6px + env(safe-area-inset-bottom));
+  justify-content: space-between;
+  height: 48px;
+}
+
+.func-scroll {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  min-width: 0;
+  box-shadow: 0 0 5px #f0f0ee;
+  border-radius: 24px;
+  overflow: hidden;
 }
 
 /* Function bar: height(38f), borderRadius(22f), padding(4f) */
 .function-bar {
-  flex: 1;
   display: flex;
   align-items: center;
   height: 38px;
   border-radius: 22px;
   background-color: #fff;
   padding: 4px;
-  box-shadow: 0 0 10px #f0f0ee;
+  white-space: nowrap;
+  gap: 4px;
 }
 
 .func-btn {
-  height: 32px;
-  padding: 6px;
-  border-radius: 999px;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  margin-right: 3px;
+  justify-content: center;
+  height: 32px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #999;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
-.func-btn:first-child {
+.func-btn.active {
   background-color: var(--card-bg-button);
+  color: #333;
+}
+
+.func-text {
+  font-size: 12px;
+  line-height: 14px;
 }
 
 .more-btn {
   width: 38px;
   height: 38px;
-  margin-left: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 5px #f0f0ee;
+  border-radius: 100%;
+  margin-left: 8px;
 }
 
 .empty-agents {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0;
+  justify-content: start;
+  align-items: start;
+  margin-top: 12px;
 }
 
 .empty-text {

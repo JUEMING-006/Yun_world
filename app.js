@@ -18,7 +18,6 @@ App({
   checkLoginAndRedirect() {
     return new Promise((resolve) => {
       const loggedIn = auth.isLoggedIn()
-
       if (!loggedIn) {
         // 未登录 → 跳转登录页
         wx.redirectTo({ url: '/pages/login/login' })

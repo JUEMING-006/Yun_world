@@ -10,6 +10,7 @@
   background-color: #f9f9f7;
   position: relative;
   overflow: hidden;
+  padding: 0 16px;
 }
 
 .main-content {
@@ -36,15 +37,14 @@
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1;
-  padding: 0 12px;
+  padding: 0 0;
   background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
 }
 
 .nav-bar-content {
   display: flex;
   align-items: flex-end;
-  padding-top: env(safe-area-inset-top);
-  height: calc(env(safe-area-inset-top) + 48px);
+  height: 48px;
 }
 
 /* Menu button: size(46f,46f), marginRight=12f */
@@ -74,13 +74,13 @@
   height: 46px;
   border-radius: 999px;
   background-color: rgba(255, 255, 255, 0.85);
-  padding: 0 6px;
+  padding: 0 12px;
   box-shadow: 0 0 10px #f0f0ee;
 }
 
 .nav-agent-avatar {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
@@ -99,7 +99,7 @@
 .nav-avatar-img { width: 100%; height: 100%; }
 
 .nav-agent-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: #333;
   max-width: 200rpx;
@@ -175,14 +175,9 @@
 }
 
 .bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  padding: 0;
+  margin: 0;
   z-index: 200;
-  padding: 0 8px;
-  margin-bottom: 20px;
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .pending-image-bar {
@@ -229,21 +224,21 @@
 /* Mode tags */
 .mode-tags {
   display: flex;
-  gap: 4px;
-  margin-bottom: 4px;
-  padding: 0 2px;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 0;
 }
 
 .mode-tag {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 3px 8px;
+  gap: 6px;
+  padding: 8px 12px;
   border-radius: 999px;
   background-color: #fff;
-  font-size: 12px;
+  font-size: 13px;
   color: #666;
-  box-shadow: 0 0 5px #f0f0ee;
+  box-shadow: 0 0 7px #f0f0ee;
 }
 
 .mode-tag.active {
@@ -255,17 +250,17 @@
 .input-row {
   display: flex;
   align-items: flex-end;
-  gap: 4px;
+  gap: 6px;
   background-color: #f9f9f7;
-  border-radius: 30px;
-  padding: 8px;
-  box-shadow: 0 0 10px #f0f0ee;
+  border-radius: 999px;
+  padding: 8px 12px;
+  box-shadow: 0 0 10px #d8d6d6c9;
 }
 
 /* Attach button: size(42f,42f), borderRadius(99f), bg=#eff0eb */
 .attach-btn {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -274,34 +269,36 @@
   border-radius: 50%;
 }
 
-/* Input: flex(1f), borderRadius(22.5f), margin(left=6f, right=6f) */
+/* Input: flex(1f), borderRadius=22.5f */
 .input-wrap {
   flex: 1;
   background-color: #fff;
-  border-radius: 22px;
-  margin: 0 6px;
-  min-height: 42px;
-  max-height: 85px;
+  border-radius: 999px;
+  margin: 0 0;
+  height: 38px;
   overflow: hidden;
 }
 
-.text-input .t-input__wrap {
+.text-input .t-textarea__wrap {
   background-color: transparent !important;
   border: none !important;
-  padding: 0 6px !important;
-  min-height: 42px !important;
+  padding: 0 !important;
+  height: 38px !important;
 }
 
-.text-input .t-input__control {
+.text-input .t-textarea__control {
   font-size: 16px !important;
   color: #333 !important;
   font-weight: 500 !important;
+  height: 38px !important;
+  line-height: 38px !important;
+  padding: 0 8px !important;
 }
 
 /* Send button: size(42f,42f), borderRadius(99f) */
 .send-btn {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background-color: #999;
   display: flex;

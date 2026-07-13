@@ -2,7 +2,7 @@
   "usingComponents": {
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-button": "tdesign-miniprogram/button/button",
-    "t-input": "tdesign-miniprogram/input/input",
+    "t-textarea": "tdesign-miniprogram/textarea/textarea",
     "t-toast": "tdesign-miniprogram/toast/toast",
     "top-bar": "../../components/top-bar/top-bar",
     "chat-bubble": "../../components/chat-bubble/chat-bubble",
