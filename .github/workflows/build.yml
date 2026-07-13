@@ -1,0 +1,66 @@
+name: Build FloatTask
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enable pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Rust target (MSVC)
+        run: rustup target add x86_64-pc-windows-msvc
+
+      - name: Generate placeholder icon
+        shell: powershell
+        run: |
+          if (-not (Test-Path "src-tauri/icons/icon.ico")) {
+            Write-Host "No icon found, generating a simple placeholder..."
+            Add-Type -AssemblyName System.Drawing
+            $bmp = New-Object System.Drawing.Bitmap(32, 32)
+            $g = [System.Drawing.Graphics]::FromImage($bmp)
+            $g.Clear([System.Drawing.Color]::Transparent)
+            $brush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(80, 140, 255))
+            $g.FillEllipse($brush, (New-Object System.Drawing.Rectangle(4, 4, 24, 24)))
+            $g.Dispose()
+            $bmp.Save("src-tauri/icons/icon.ico", [System.Drawing.Imaging.ImageFormat]::Icon)
+            $bmp.Dispose()
+            Write-Host "Placeholder icon generated."
+          } else {
+            Write-Host "Icon already exists, skipping."
+          }
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build frontend + Tauri
+        run: pnpm tauri build
+
+      - name: Upload .msi artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FloatTask-msi
+          path: src-tauri/target/msi/*.msi
+
+      - name: Upload .exe artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FloatTask-exe
+          path: src-tauri/target/nsis/*.exe
