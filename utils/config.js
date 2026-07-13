@@ -5,11 +5,13 @@
  * 小程序必须使用完整绝对 URL（无 devServer proxy）
  */
 
+const secrets = require('./secrets')
+
 // 业务接口基地址（/v2 前缀）
-const BASE_URL = 'http://8.138.21.54:5250/v2'
+const BASE_URL = secrets.BASE_URL
 
 // Agent/AI 接口基地址（/v1o5 前缀）
-const AGENT_BASE_URL = 'http://8.138.21.54:5250/v1o5'
+const AGENT_BASE_URL = secrets.AGENT_BASE_URL
 
 // CDN 基地址（大资源走 CDN，避免包体积超限）
 const CDN_BASE_URL = 'https://cdn.lumina.example.com'
@@ -18,7 +20,7 @@ const CDN_BASE_URL = 'https://cdn.lumina.example.com'
 const TOKEN_REFRESH_THRESHOLD_MS = 5 * 60 * 1000
 
 // 飞书开放平台配置
-const LARK_APP_ID = 'cli_a755168624b6500c'
+const LARK_APP_ID = secrets.LARK_APP_ID
 const LARK_SERVER = 'https://open.feishu.cn'
 
 /**

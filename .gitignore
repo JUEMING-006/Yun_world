@@ -16,3 +16,6 @@ npm-debug.log*
 # 系统文件
 .DS_Store
 Thumbs.db
+
+# 敏感配置
+utils/secrets.js
